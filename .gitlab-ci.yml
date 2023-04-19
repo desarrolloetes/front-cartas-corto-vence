@@ -1,0 +1,26 @@
+image: alpine:latest
+
+stages:
+  - build
+  - test 
+  - push_image 
+  - deploy
+
+include:
+  - project: 'empresassb/arquitectura/cicd-templates'
+    file: '/stages/build_docker.yml'
+ 
+  - project: 'empresassb/arquitectura/cicd-templates'
+    file: '/stages/code_quality.yml'
+ 
+  - project: 'empresassb/arquitectura/cicd-templates'
+    file: '/stages/sonarqube-nodejs.yml'
+
+  - project: 'empresassb/arquitectura/cicd-templates'
+    file: '/stages/test.yml'
+
+  - project: 'empresassb/arquitectura/cicd-templates'
+    file: '/stages/push_image.yml'   
+
+  - project: 'empresassb/arquitectura/cicd-templates'
+    file: '/stages/deploy_openshift.yml'  
